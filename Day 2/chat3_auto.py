@@ -8,7 +8,6 @@ load_dotenv("../.env")
 Api_key = os.getenv('GOOGLE_API_KEY')
 Base_Url = os.getenv("GOOGLE_BASE_URL")
 
-print(Api_key)
 
 client = OpenAI(
     base_url= Base_Url,
