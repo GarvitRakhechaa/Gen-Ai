@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excalidraw Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Excalidraw Clone</h1>
+    </header>
+
+    <div class="toolbar">
+        <button id="penTool">Pen</button>
+        <button id="eraserTool">Eraser</button>
+        <button id="clearCanvas">Clear</button>
+        <button id="lineTool">Line</button>
+        <button id="rectangleTool">Rectangle</button>
+        <button id="circleTool">Circle</button>
+
+        <label for="strokeColor">Color:</label>
+        <input type="color" id="strokeColor" value="#0f0">
+
+        <label for="lineWidth">Size:</label>
+        <input type="number" id="lineWidth" value="2" min="1" max="10">
+    </div>
+
+    <canvas id="drawingCanvas"></canvas>
+
+    <script src="app.js"></script>
+</body>
+</html>

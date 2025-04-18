@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RAG Assistant</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(255, 165, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #ffa500;
+    }
+
+    .chat-box {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      border: 1px solid #333;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #181818;
+    }
+
+    .chat-entry {
+      background: #2a2a2a;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      overflow-wrap: break-word; /* Wrap long words/lines */
+    }
+
+    .user-msg {
+        border-left: 4px solid #4da6ff; /* Blue for user */
+    }
+
+    .ai-msg {
+        border-left: 4px solid #ffa500; /* Orange for AI */
+    }
+
+    .chat-entry p {
+      margin: 5px 0;
+    }
+
+    .chat-entry .label {
+        font-weight: bold;
+        font-size: 0.9em;
+        color: #aaa;
+        margin-bottom: 3px;
+    }
+
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    input[type="text"] { /* Changed selector slightly */
+      flex: 1;
+      padding: 10px;
+      background: #1a1a1a;
+      color: #f5f5f5;
+      border: 1px solid #555;
+      border-radius: 6px;
+    }
+     /* Style file input separately if needed */
+    input[type="file"] {
+      flex: 1;
+      padding: 8px; /* Adjusted padding slightly */
+      background: #1a1a1a;
+      color: #aaa; /* Lighter text for placeholder */
+      border: 1px solid #555;
+      border-radius: 6px;
+      line-height: 1.5; /* Better vertical alignment */
+    }
+    /* Style file input button */
+    input[type="file"]::file-selector-button {
+       padding: 8px 15px;
+       margin-right: 10px;
+       background-color: #ffa500;
+       color: #121212;
+       font-weight: bold;
+       border: none;
+       border-radius: 4px;
+       cursor: pointer;
+       transition: background 0.2s;
+    }
+    input[type="file"]::file-selector-button:hover {
+        background-color: #ffb733;
+    }
+
+
+    button {
+      padding: 10px 20px;
+      background-color: #ffa500;
+      color: #121212;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background-color: #ffb733;
+    }
+
+    button:disabled {
+      background-color: #555;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    #uploadStatus {
+      margin: 10px 0;
+      color: #90ee90;
+      min-height: 1.2em; /* Prevent layout shift */
+      font-size: 0.9em;
+    }
+    #errorStatus {
+       margin: 10px 0;
+       color: #ff6b6b; /* Red for errors */
+       min-height: 1.2em;
+       font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🧠 RAG Assistant</h1>
+
+    <div class="input-group">
+      <input type="file" id="pdfFile" accept="application/pdf" />
+      <button id="uploadButton" onclick="uploadPDF()">Upload PDF</button>
+    </div>
+
+    <div id="uploadStatus"></div>
+    <div id="errorStatus"></div> <!-- Added for general errors -->
+
+    <div class="chat-box" id="chatBox"></div>
+
+    <div class="input-group">
+      <input type="text" id="questionInput" placeholder="Ask something based on the PDF..." />
+      <button onclick="askQuestion()" id="askButton">Ask</button>
+    </div>
+  </div>
+
+  <script>
+    const uploadButton = document.getElementById("uploadButton");
+    const pdfFileInput = document.getElementById("pdfFile");
+    const uploadStatus = document.getElementById("uploadStatus");
+    const errorStatus = document.getElementById("errorStatus"); // Get error element
+    const chatBox = document.getElementById("chatBox");
+    const questionInput = document.getElementById("questionInput");
+    const askButton = document.getElementById("askButton");
+
+    // Add event listener for Enter key in the question input
+    questionInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent default form submission (if applicable)
+        askButton.click(); // Trigger the Ask button click
+      }
+    });
+
+
+    async function uploadPDF() {
+      const file = pdfFileInput.files[0];
+      errorStatus.textContent = ''; // Clear previous errors
+
+      if (!file) {
+        alert("Please select a PDF file first.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      uploadStatus.textContent = "Uploading and processing... This may take a few minutes depending on the PDF size.";
+      uploadButton.disabled = true;
+      pdfFileInput.disabled = true;
+
+       // No longer needed with proper server responses
+      // Show alert after 3 minutes if the process is still running
+      // setTimeout(() => {
+      //   if (uploadStatus.textContent.startsWith("Uploading")) {
+      //     alert("The upload is taking longer than expected. Please be patient.");
+      //   }
+      // }, 180000); // 3 minutes in milliseconds
+
+      try {
+        // IMPORTANT: Ensure this URL matches your FastAPI server
+        const res = await fetch("http://localhost:8000/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        // Check if the request was successful (status code 2xx)
+        if (!res.ok) {
+            // Try to get error message from server response, otherwise use status text
+            let errorMsg = `Upload failed: ${res.status} ${res.statusText}`;
+            try {
+                 const errorData = await res.json();
+                 errorMsg = `Upload failed: ${errorData.detail || errorData.message || JSON.stringify(errorData)}`;
+            } catch (jsonError) {
+                 // Could not parse JSON, use original status text
+                 console.error("Could not parse error JSON:", jsonError);
+            }
+            throw new Error(errorMsg);
+        }
+
+
+        const data = await res.json();
+        uploadStatus.textContent = data.message;
+        // Optionally clear the file input after successful upload
+        // pdfFileInput.value = '';
+
+      } catch (err) {
+        console.error("Upload Error:", err); // Log the full error
+        uploadStatus.textContent = ""; // Clear loading message
+        errorStatus.textContent = "Upload failed. " + err.message + " (Check console and server logs)"; // Show specific error
+      } finally {
+          // Re-enable buttons regardless of success or failure
+          uploadButton.disabled = false;
+          pdfFileInput.disabled = false;
+      }
+    }
+
+    // --- New askQuestion Implementation ---
+    async function askQuestion() {
+      const query = questionInput.value.trim();
+      errorStatus.textContent = ''; // Clear previous errors
+
+      if (!query) {
+        alert("Please enter a question.");
+        return;
+      }
+
+      // Display user's question immediately
+      appendMessage('User', query, 'user-msg');
+      questionInput.value = ''; // Clear input field
+      questionInput.disabled = true;
+      askButton.disabled = true;
+
+      // Add a thinking indicator (optional)
+      const thinkingMsg = appendMessage('Assistant', 'Thinking...', 'ai-msg thinking'); // Added thinking class
+
+      try {
+         // IMPORTANT: Ensure this URL matches your FastAPI server
+        const res = await fetch("http://localhost:8000/ask", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query: query }) // Send query in JSON body
+        });
+
+        // Remove thinking indicator
+        thinkingMsg?.remove(); // Safely remove if it exists
+
+        if (!res.ok) {
+            let errorMsg = `Failed to get answer: ${res.status} ${res.statusText}`;
+            try {
+                 const errorData = await res.json();
+                 errorMsg = `Failed to get answer: ${errorData.detail || errorData.message || JSON.stringify(errorData)}`;
+            } catch (jsonError) {
+                 console.error("Could not parse error JSON:", jsonError);
+            }
+             throw new Error(errorMsg);
+        }
+
+        const data = await res.json();
+
+        if (data.answer) {
+             appendMessage('Assistant', data.answer, 'ai-msg');
+        } else {
+            throw new Error("Received an empty answer from the server.");
+        }
+
+
+      } catch(err) {
+          console.error("Ask Question Error:", err);
+          // Remove thinking indicator if error occurs before response
+           thinkingMsg?.remove();
+          errorStatus.textContent = "Error asking question. " + err.message + " (Check console and server logs)";
+          // Optionally display error in chat
+          appendMessage('System', `Error: ${err.message}`, 'error-msg'); // Add a specific CSS class if needed
+      } finally {
+           questionInput.disabled = false;
+           askButton.disabled = false;
+           questionInput.focus(); // Set focus back to input
+      }
+
+    }
+
+    // Helper function to add messages to the chatbox
+    function appendMessage(sender, message, className) {
+        const chatEntry = document.createElement('div');
+        chatEntry.classList.add('chat-entry', className); // Add base class and specific class
+
+        const senderLabel = document.createElement('p');
+        senderLabel.classList.add('label');
+        senderLabel.textContent = sender;
+
+        const messageText = document.createElement('p');
+        messageText.textContent = message; // Use textContent to prevent XSS
+
+        chatEntry.appendChild(senderLabel);
+        chatEntry.appendChild(messageText);
+        chatBox.appendChild(chatEntry);
+
+        // Scroll to the bottom
+        chatBox.scrollTop = chatBox.scrollHeight;
+        return chatEntry; // Return the element if needed (e.g., for removing 'Thinking')
+    }
+
+  </script>
+
+
+</body>
+</html>

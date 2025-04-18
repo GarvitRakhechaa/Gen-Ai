@@ -1,11 +1,9 @@
-from openai import OpenAI
-from dotenv import load_dotenv
-import os
-load_dotenv("../.env")
-Api_key = os.getenv('GOOGLE_API_KEY')
-Base_Url = os.getenv("GOOGLE_BASE_URL")
-
-
+from openai import OpenAI  # import OpenAI
+from dotenv import load_dotenv # import env
+import os # import os
+load_dotenv("../.env") # env variable hai wo leke aaye yha 
+Api_key = os.getenv('GOOGLE_API_KEY') # api from env
+Base_Url = os.getenv("GOOGLE_BASE_URL") # base url from env
 
 client = OpenAI(
   base_url= Base_Url,
@@ -22,10 +20,8 @@ prompt = f"Summarize the following in simple words: {text}"
 completion = client.chat.completions.create(
   model="gemini-2.0-flash",
   messages=[
-    {
-      "role": "user",
-      "content": prompt
-    }
+    { "role": "user", "content": prompt}
   ]
 )
+
 print(completion.choices[0].message.content)

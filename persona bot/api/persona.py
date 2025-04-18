@@ -1,17 +1,23 @@
-from flask import Flask, request, jsonify
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from openai import OpenAI
 import os
-from flask_cors import CORS
 import copy
+from pydantic import BaseModel
 
 # Load environment variables
-load_dotenv("../.env")
-Api_key = os.getenv('GOOGLE_API_KEY')
-Base_Url = os.getenv("GOOGLE_BASE_URL")
+load_dotenv(".env")
+API_KEY = os.getenv("GOOGLE_API_KEY")
+BASE_URL = os.getenv("GOOGLE_BASE_URL")
 
+# Initialize OpenAI client
+client = OpenAI(
+    base_url=BASE_URL,
+    api_key=API_KEY
+)
 
-
+# Dummy persona variables (replace with actual values)
 Hitesh_Persona = """
 you are hitesh choudhary  and aap jaipur me rahte ho
 your Name is Hitesh Choudhary and you are a teacher by profession. You teach coding to various level of students, right from beginners to folks who are already writing great softwares. YOu have been teaching on for more than 10 years now and it is your passion to teach people coding. It's a great feeling when you teach someone and they get a job or build something on their own. 
@@ -681,11 +687,7 @@ Summary:
 - aap kaam karte ho silently but results bolte hain — no hype, no gyaan, just solid value.
 """
 
-client = OpenAI(
-    base_url=Base_Url,
-    api_key=Api_key
-)
-
+# Templates and conversation memory
 conversation_templates = {
     'piyush': [{"role": "system", "content": Piyush_Persona}],
     'hitesh': [{"role": "system", "content": Hitesh_Persona}]
@@ -696,57 +698,53 @@ conversation_map = {
     'hitesh': copy.deepcopy(conversation_templates['hitesh'])
 }
 
+# Initialize FastAPI app
+app = FastAPI()
 
-conversation = []
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or specify frontend origin(s)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-app = Flask(__name__)
-CORS(app)
+# Request schema
+class ChatRequest(BaseModel):
+    message: str
+    mentor: str
 
+# Endpoint
+@app.get("/")
+def read_root():
+    return {"message": "Hello from FastAPI on Vercel!"}
 
-@app.route('/chat', methods=['POST', 'OPTIONS'])
-def chat():
-    assistant_response = "No response"  # Default response to handle empty response
+@app.post("/chat")
+async def chat_endpoint(data: ChatRequest):
+    assistant_response = "No response"
 
-    if request.method == "POST":
-        data = request.get_json()
-        user_input = data['message']
-        mentor = data['mentor']
-        print(mentor)
+    user_input = data.message
+    mentor = data.mentor
 
-        
-        if mentor not in conversation_map:
-            conversation_map[mentor] = copy.deepcopy(
-                conversation_templates.get(mentor, conversation_templates['piyush'])
+    # Init if unknown mentor
+    if mentor not in conversation_map:
+        conversation_map[mentor] = copy.deepcopy(
+            conversation_templates.get(mentor, conversation_templates['piyush'])
         )
-            
-        conversation = conversation_map[mentor]
 
+    conversation = conversation_map[mentor]
+    conversation.append({"role": "user", "content": user_input})
 
+    try:
+        result = client.chat.completions.create(
+            model="gemini-2.0-flash",
+            messages=conversation
+        )
+        assistant_response = result.choices[0].message.content
+        conversation.append({"role": "assistant", "content": assistant_response})
 
-        # Append user input to the conversation
-        conversation.append({"role": "user", "content": user_input})
+    except Exception as e:
+        assistant_response = f"Error: {str(e)}"
 
-        # Call the chat completion API (Ensure this is properly set up)
-        try:
-            result = client.chat.completions.create(
-                model="gemini-2.0-flash",
-                messages=conversation
-            )
-
-            # Extract the assistant response
-            assistant_response = result.choices[0].message.content
-            conversation.append({"role": "assistant", "content": assistant_response})
-
-        except Exception as e:
-            assistant_response = f"Error: {str(e)}"
-
-    elif request.method == "OPTIONS":
-        # Handle the preflight CORS request
-        return '', 204
-
-    return jsonify({'response': assistant_response})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-    
+    return {"response": assistant_response}

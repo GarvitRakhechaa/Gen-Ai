@@ -49,4 +49,5 @@ result = client.chat.completions.create(
 )
 
 print(result.choices[0].message.content)
+print(result.choices[0].message)
 

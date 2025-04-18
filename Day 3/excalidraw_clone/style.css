@@ -1,0 +1,73 @@
+body {
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.toolbar {
+    background-color: #ddd;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.toolbar button {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    background-color: #bbb;
+    color: #333;
+    border-radius: 5px;
+}
+
+.toolbar button:hover {
+    background-color: #999;
+}
+
+#drawingCanvas {
+    background-color: #fff;
+    border: 2px solid #000;
+    cursor: crosshair;
+    touch-action: none; /* Disable scrolling on touch */
+    display: block;
+    margin: 20px auto;
+}
+
+/* Retro Styles */
+body {
+    background-color: #000;
+    color: #0f0;
+}
+
+header {
+    background-color: #222;
+    color: #0f0;
+    border-bottom: 2px dashed #0f0;
+}
+
+.toolbar {
+    background-color: #111;
+}
+
+.toolbar button {
+    background-color: #333;
+    color: #0f0;
+    border: 1px solid #0f0;
+}
+
+.toolbar button:hover {
+    background-color: #555;
+}
+
+#drawingCanvas {
+    border-color: #0f0;
+}
