@@ -168,13 +168,14 @@
             userInput.value = '';
 
             try {
-                const response = await fetch('http://127.0.0.1:5000/chat', {
+                const response = await fetch('https://persona-bot-eight.vercel.app/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message, mentor: selectedMentor })
                 });
 
                 const data = await response.json();
+                console.log(data.response)
                 appendMessage(data.response, 'assistant-message');
             } catch (error) {
                 console.error('Error:', error);
