@@ -48,8 +48,7 @@ result = client.chat.completions.create(
     response_format = {"type": "json_object"},
     messages=[
         { "role": "system", "content": system_prompt },
-        { "role": "user", "content": "what is 3 + 4 * 5" },
-        
+        { "role": "user", "content": "what is 3 + 4 * 5" }, 
         #
         { "role": "assistant", "content": json.dumps({"step": "analyse","content": "The user is asking for the result of a mathematical expression involving addition and multiplication. It's crucial to remember the order of operations (PEMDAS/BODMAS) to solve this correctly."})  },
         { "role": "assistant", "content": json.dumps({"step": "think","content": "According to the order of operations (PEMDAS/BODMAS), multiplication should be performed before addition. Therefore, I need to first calculate 4 * 5, and then add 3 to the result."}) },

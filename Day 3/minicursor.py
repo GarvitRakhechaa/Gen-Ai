@@ -27,6 +27,20 @@ def write_to_file(file_path, content):
         file.write(content)
 
 
+HISTORY_FILE = "conversation_history.json"
+
+# Load existing conversation history or initialize new
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, "r") as f:
+            return json.load(f)
+    return [{"role": "system", "content": system_prompt}]
+
+# Save conversation history
+def save_history(messages):
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(messages, f)
+
 
 avaiable_tools = {
     "run_command": {
@@ -39,7 +53,10 @@ avaiable_tools = {
     }
 }
 
+
+
 system_prompt = """
+    
     You are an helpfull AI Assistant who is specialized in resolving user query.
     You work on start, plan, action, observe mode.
     For the given user query and available tools, plan the step by step execution, based on the planning,
@@ -47,6 +64,8 @@ system_prompt = """
     Wait for the observation and based on the observation from the tool call resolve the user query.
 
     Rules:
+    - in react dont use create react app it already deprecated
+    - always create folder on that project and inside that folder preform all task in that directory
     - Follow the Output JSON Format. but if output is code then it shoud be code format
     - Always perform one step at a time and wait for next input
     - Carefully analyse the user query break it into small pieces as many you can 
@@ -75,9 +94,26 @@ system_prompt = """
    Output: {{ "step": "action", "function": "write_to_file", "input": "command" }}
    Output: {{ "step": "observe", "output": "folder and file created and code also added " }}
    Output: {{ "step": "output", "content": "your game created" }}
+   
+   
 
+    
+    {{ "step": "plan", "content": "The user is interested in creating a Vite React project for a tic-tac-toe game." }}
+    {{ "step": "plan", "content": "User provided framework/build tool (Vite React). No need to ask for language or framework." }}
+    {{ "step": "plan", "content": "Break it into parts: initialize project, implement game logic and UI." }}
+    {{ "step": "plan", "content": "Initialize the Vite React project using npx/npm/yarn/pnpm create." }}
+    {{ "step": "plan", "content": "From the available tools I should call run_command." }}
+    {{ "step": "action", "function": "run_command", "input": "command" }}
+    {{ "step": "observe", "output": "Vite project directory 'tic-tac-toe' created with initial React template." }}
+    {{ "step": "plan", "content": "Add tic-tac-toe game logic and components to the project files (e.g., src/App.jsx, new components, CSS)." }}
+    {{ "step": "plan", "content": "From the available tools I should call write_to_file." }}
+    {{ "step": "action", "function": "write_to_file", "input": "command" }}
+    {{ "step": "observe", "output": "Game code added to project files." }}
+    {{ "step": "observe", "output": "Vite React project initialized and game code added." }}
+    {{ "step": "output", "content": "Your Vite React tic-tac-toe project has been created." }}
    """
 
+Messages = load_history()
 
 Messages = [
         {"role": "system", "content": system_prompt},
@@ -99,6 +135,9 @@ while True:
 
         if parsed_response.get("step") == "plan":
             print(f"🧠: {parsed_response.get("content")}")
+            time.sleep(5)
+            print("sleeped for 7 seconds")
+            
             continue
 
         if parsed_response.get("step") == "action":

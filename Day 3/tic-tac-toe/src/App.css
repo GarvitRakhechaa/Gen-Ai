@@ -1,0 +1,55 @@
+body {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ min-height: 100vh;
+ margin: 0;
+}
+
+.square {
+ background: #fff;
+ border: 1px solid #999;
+ float: left;
+ font-size: 48px; /* Increased font size */
+ font-weight: bold;
+ line-height: 68px; /* Increased line height */
+ height: 68px; /* Increased height */
+ margin-right: -1px;
+ margin-top: -1px;
+ padding: 0;
+ text-align: center;
+ width: 68px; /* Increased width */
+ color: black; /* X and O color */
+}
+
+.board-row:after {
+ clear: both;
+ content: '';
+ display: table;
+}
+
+.status {
+ margin-bottom: 10px;
+ font-size: 24px; /* Increased font size */
+}
+
+.game {
+ display: flex;
+ flex-direction: row;
+}
+
+.game-info {
+ margin-left: 20px;
+ font-size: 24px; /* Increased font size */
+}
+
+.game-info button {
+ font-size: 16px; /* Increased font size for button */
+}
+
+.status-tab {
+ font-size: 36px; /* Even larger font size for status */
+ font-weight: bold;
+ margin-bottom: 20px;
+ text-align: center;
+}

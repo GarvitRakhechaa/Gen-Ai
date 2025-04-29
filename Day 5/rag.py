@@ -9,11 +9,11 @@ print("file upload done")
 
 # adding loader on file 
 loader = PyPDFLoader(file_path=file_path)
-print("loader ban gya")
+print("made loader")
 
 # convert in docs 
 docs = loader.load()
-print("file ko docs me convert kar diya")
+print("using loader conversion of file is done")
 
 
 # print(docs)
@@ -27,11 +27,11 @@ text_splitter = RecursiveCharacterTextSplitter(
     chunk_size = 1000,  # breaks into chucks with size of 1000
     chunk_overlap = 200 # chunk overlap menas thoda sa pichele se bhi le le taki context loose na ho
 )
-print("text splitter bna gya hai")
+print("made a text_splitter")
 
 # spliting docs into chunks
 split_docs = text_splitter.split_documents(documents=docs)
-print("file ke text ko chunks me split kar diya")
+print("splitted the file in chunks")
 
 # print("docs ki length ", len(docs))
 # print()
@@ -49,7 +49,7 @@ embeddings = GoogleGenerativeAIEmbeddings(
     api_key = Api_key  
 )
 
-print("text embedder bna gya")
+print("made a text embedder")
 from langchain_qdrant import QdrantVectorStore
 
 collection_loaded = False
@@ -69,16 +69,15 @@ except:
     )
 
     
-print("collection bhi ban gya qdrantdb me")
+print("done collection in qdrant")
 
-if collection_loaded:
-    print("Existing collection was loaded.")
-else:
-    print("New collection was created.")
+# if collection_loaded:
+#     print("Existing collection was loaded.")
+# else:
+#     print("New collection was created.")
     
 
 vector_store.add_documents(documents=split_docs)
-print("spitted docs ko qdrant db me save kiya hai means: ")
 print("injection done")
 
 def speak_text(text):
@@ -90,6 +89,7 @@ def speak_text(text):
 
     engine.say(text)
     engine.runAndWait()
+    
 while True:
     retriver = QdrantVectorStore.from_existing_collection(
         url="http://localhost:6333/",

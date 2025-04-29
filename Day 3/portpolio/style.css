@@ -1,0 +1,134 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Dark background */
+    color: #eee;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #222;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: 2px solid #00bcd4; /* Accent color */
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 1rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #00bcd4;
+}
+
+section {
+    padding: 2rem;
+    margin: 1rem;
+    background-color: #333;
+    border: 1px solid #555;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+section h2 {
+    color: #00bcd4;
+    border-bottom: 2px solid #00bcd4;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.experience-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+#skills ul {
+    list-style: square;
+    padding-left: 2rem;
+}
+
+#contact p {
+    margin-bottom: 0.5rem;
+}
+
+#contact a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #222;
+    color: #fff;
+    border-top: 2px solid #00bcd4;
+}
+
+/* Projects Section Styles */
+#projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.project-item {
+    width: 300px;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background-color: #444;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease-in-out;
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+}
+
+.project-item h3 {
+    color: #00bcd4;
+    margin-top: 0;
+}
+/* Skill Bar Styles */
+.skill-item {
+    margin-bottom: 1rem;
+}
+
+.skill-item p {
+    margin-bottom: 0.3rem;
+    color: #00bcd4;
+}
+
+.skill-bar {
+    background-color: #444;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-level {
+    background-color: #00bcd4;
+    height: 100%;
+    width: 0%; /* Set dynamically with inline styles */
+    border-radius: 5px;
+}
