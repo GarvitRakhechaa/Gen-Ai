@@ -1,0 +1,291 @@
+Phase 1: Foundations and Core Concepts
+
+Programming Fundamentals & Machine Learning Basics:
+
+Proficiency in Python (variables, data types, control structures).   
+Libraries: NumPy, Pandas, Matplotlib, OpenCV  (for CV).   
+Basic Machine Learning Concepts (Supervised, Unsupervised Learning, training foundational models).   
+MLOps Tools Overview: zenml, mlflow, prefect.   
+Introduction to AI Sub-fields:
+
+Overview of Classical NLP.   
+Introduction to Computer Vision.   
+Introduction to Generative AI:
+Definition and Significance.   
+Core Components and Applications.   
+Ethical and Social Implications.   
+Fundamental Neural Network Architectures:
+
+Differences in ANN, CNN, RNN (LSTM, GRU).   
+Neural Network Basics: Neurons, Layers, Activation Functions, Backpropagation.   
+Encoder-Decoder Architectures.   
+Attention Mechanisms.   
+Phase 2: Deep Dive into Core AI Areas (NLP & Computer Vision)
+
+Natural Language Processing (NLP):
+
+NLP Techniques and Applications: Text Classification, Sentiment Analysis, Named Entity Recognition.   
+Libraries: SpaCy, Hugging Face.   
+Text Preprocessing: Tokenization, Stemming, Lemmatization.   
+Libraries: NLTK, TextBlob.   
+Word and Sentence Embeddings:
+Introduction to Embeddings.   
+Common Embedding Methods.   
+Word vs. Sentence Embedding.   
+Embedding Models: Word2Vec, BERT, Sentence Transformers.   
+Evaluation of Embeddings.   
+Transformer Architecture:
+
+Understanding and Implementing the Transformer Architecture.   
+Self-Attention Mechanism: Overview, Multi-Head Self-Attention.   
+Geometric Intuition into Self-Attention.   
+Masked Self-Attention (for Language Modeling), Cross-Attention (for comparing sequences).   
+Transformer Architecture Components: Encoders, Decoders.   
+Implementing Transformers from scratch in PyTorch.   
+Large Language Models (LLMs):
+
+Fundamentals of LLMs.   
+Foundation Models Overview.   
+Model Architectures: BERT, GPT, LLAMA, Mistral.   
+Training Foundation Models (Techniques).   
+Working with Prompts: Freeform Prompts, Structured Prompts, Text Chat Prompt.   
+Hugging Face Ecosystem:
+
+Introduction to Hugging Face.   
+Hugging Face API and Inference.   
+Fine-Tuning Large Language Models with Transformers.   
+Model Deployment and Sharing (Hugging Face Hub and Spaces).   
+NLP and Hugging Face Transformers library.   
+Multimedia Models with Hugging Face (Image, Video, Audio models).   
+Hugging Face Model Downloader.   
+Overview of Major AI APIs:
+
+Introduction to OpenAI APIs (Overview, Capabilities).   
+Setting Up OpenAI Account.   
+OpenAI Pricing and Models (GPT-3.5, GPT-4 ).   
+Introduction to Google Gemini  (AI model features).   
+Anthropic Claude Overview  (Capabilities).   
+Computer Vision (Image Processing & Core Tasks):
+
+Foundations of Image Processing: Understanding Pixels, Image Types, EXIF.   
+Color Models: Color Models, Color Thresholding, Image Classification.   
+Image Manipulation and Transformation: Image Scaling, Aspect Ratio, Crop, Image Flip, Rotate.   
+Image Features: Contours, Contours Processing.   
+Deep Learning - Computer Vision I: Applying DL basics to image data, Understanding Image Data Variation (occlusion, scale variation, illumination, noise, background & other).   
+Convolutional Neural Network (CNN):
+Introduction and Why CNN is Better than ANN.   
+Components of CNN, Input Data.   
+Core CNN Operations: Convolution Layer, Convolve Function, Filters (Kernels), Kernel Size, Stride, Padding, Feature Map, Channels.   
+Activation and Pooling: Activation Function, Why to Use Activation Function, Pooling Layer, Max + AVG Pooling, 1x1 Convolution.   
+Network Architecture: Flattening, Fully Connected Layer (Dense Layer), Dropout, Batch Normalization, Softmax.   
+Training Mechanisms  (Loss Function, Optimizer, Forward Propagation, Backpropagation ).   
+Output and Predictions.   
+  
+Advanced CNN Architectures: LeNet, AlexNet, VGGNet, ResNet, Inception-v3, DenseNet, MobileNet.   
+Computer Vision with Attention: Vision Transformers (ViT), ConvNeXt.   
+Computer Vision (Advanced Tasks):
+
+Object Detection:
+What is Object Detection, Classification, Regression.   
+Core Components: Selective Search, Region Proposal Network, CNN - Feature Extractor, Pre-trained Backbones, Feature Pyramid Network, RoI Pooling, Anchor Boxes, Bounding Box Regression & Classification Head.   
+Object Detection Algorithms: Two-Stage Detectors (RCNN, Fast RCNN, Faster RCNN ), Single-Stage Detectors (YOLO, YOLOv5  & YOLOv11 ).   
+Advanced Detection Methods: Non-Maximum Suppression, Advanced Loss Functions.   
+Hands-On: Creating Our Own Object Detection Algorithm.   
+  
+Segmentation:
+What is Segmentation, Semantic Segmentation, Instance Segmentation.   
+Core Concepts: Downsampling, Upsampling/Transposed Convolution, Skip Connections, Atrous Convolutions, Conditional Random Fields, Loss Functions (Softmax with Cross-Entropy, Dice Loss), Evaluation Metrics.   
+Popular Architectures & Framework: Unet, DeepLab v3, MaskRCNN, MMDetection.   
+Practical Implementation: Implementing Unet from Scratch, Popular Datasets to Get Started.   
+  
+Object Tracking:
+What is Object Tracking.   
+Tracking Methods: Filter-Based Tracking, CNN-Based Tracking.   
+Key Algorithms: Kalman Filter, SORT, DeepSORT, Re-ID.   
+Hands-On: Using YOLO  and ByteSort  to Track Objects.   
+  
+Generative Models for Vision Applications:
+Overview of Generative AI in Vision.   
+Applications in Image Synthesis, Style Transfer, and Segmentation.   
+Key Models and Techniques: CLIP, SAM, Stable Diffusion, CycleGAN.   
+Hands-On: Text-to-Image Generation for Creative Media, Image Segmentation for Data Labeling, Style Transfer and Domain Adaptation for Synthetic Data.   
+  
+Phase 3: Agentic AI and Advanced Generative AI Techniques
+
+Introduction to Agentic AI:
+
+What is Agentic AI?.   
+What are Agents?, Agentic AI vs AI Agents, Agentic AI vs Generative AI.   
+What are Multi-Agents?.   
+Overview of Agentic AI Frameworks.   
+Vector Databases for AI Applications:
+
+Introduction to Vector Databases.   
+Comparison with SQL and NoSQL.   
+Data Storage and Architecture.   
+Types of Vector Databases: In-memory, Local disk, Cloud-based options.   
+Indexing Methods for Vector Search (Efficient techniques).   
+Search Algorithms for Vector Similarity  (Annoy - Approximate Nearest Neighbor Oh Yeah).   
+Multilingual and Semantic Search Functionalities.   
+Sparse, Dense, and Hybrid Search Types.   
+Setup and Query Operations using Popular Vector Databases: Chroma DB, Faiss, Quadrant, Pinecone, LanceDB.   
+Integrating with NoSQL Databases: MongoDB, Cassandra.   
+Vector Databases (VectorDbs), Storage, Embeddings.   
+Retrieval-Augmented Generation (RAG):
+
+Introduction to RAG: Overview of retrieval-augmented generation concepts.   
+End-to-End RAG Pipeline: Steps involved in RAG implementation.   
+Implementing RAG with Tools: Using LangChain  and vector databases  effectively.   
+Hybrid Search  and Reranking: Enhancing search quality through multiple methods.   
+Retrieval Methods and Memory Integration within RAG systems.   
+Multimodal RAG Applications: Integrating video processing  and document parsing  techniques.   
+RAG with Knowledge Graphs: Utilizing knowledge graphs for enriched retrieval.   
+Agentic RAG Techniques:
+Adaptive Retrieval-Augmented Generation  (Adaptive RAG, Adaptive RAG with Cohere, Adaptive RAG in Local ).   
+Controlled & Contextual RAG (Agentic RAG, C-RAG, C-RAG in Local ).   
+Self-Optimizing RAG (Self RAG, Self RAG in Local, Self RAG with VectorDB ).   
+  
+Fine-Tuning for Specialized AI Applications:
+
+Transfer Learning vs. Fine-Tuning.   
+Complete End-to-End Finetuning Roadmap.   
+Types of Fine-Tuning Techniques: Supervised Fine-Tuning, Instruction Fine-Tuning, RLHF techniques.   
+Advanced Fine-Tuning Strategies: DPO, PPO, and RLHF comparisons.   
+Model Quantization Techniques: Overview of 4-bit, 8-bit, and 1-bit.   
+Fine-Tuning Open-Source Models  (Techniques for various models): BERT, LLAMA, Mistral.   
+Fine-Tuning OpenAI models (GPT-3.5, GPT-4 ).   
+Fine-Tuning of Foundation Model - Overview, Architecture.   
+Hands On AWS SageMaker.   
+AI Agent Frameworks and Concepts:
+
+LangChain:
+Introduction to Basic Components and Modules.   
+Data Ingestion with Document Loaders.   
+Text Splitting Techniques: Recursive Character Text Splitter, Character Text Splitter, HTML Header Text Splitter, Recursive JSON Splitter.   
+Embeddings and Vector Storage: OpenAI Embeddings, Ollama Embeddings, Hugging Face Embeddings, VectorStores (FAISS, ChromaDB ), VectorStore and Retriever.   
+LangChain Tools and Toolkit (Available tools).   
+Prompt Templating  and Chains.   
+Synthetic Data Generation  and Memory Management.   
+AI Agents within LangChain.   
+  
+LangChain Expression Language (LCEL):
+Getting Started with Open Source Models Using Groq API.   
+Building LLM, Prompt, and Structured Output Chains with LCEL.   
+Deployment & API Integration: Deploy Langserve Runnable  and Chain as API.   
+  
+LangGraph:
+Introduction, Simple Graph, LangGraph Studio.   
+Core Components: Chain, Router, Agent, Agent with Memory.   
+State & Memory Management: Understanding State Management, State Schema, Multiple Schemas, Memory Optimization, State Reducers, Trim and Filter Messages.   
+UX and Human in Loop: Interaction Streaming, Breakpoints, Editing State and Human Feedback, Dynamic Breakpoints, Time Travel.   
+LangGraph Deployments: Deployment Concepts, Creating a Deployment, Connecting to a Deployment.   
+Designing Multi-Agent Systems with LangGraph: Building Agent Nodes in LangGraph, Agent Communication Protocols and Coordination, Defining Tasks and Roles for Agents, Creating Scalable Multi-Agent Systems in LangGraph, Building A Real-World Multi-Agent System.   
+  
+Agno  - Lightweight Framework:
+Core Concepts & Components: Agents in Agno, Teams, Models, Tools, Knowledge.   
+Data Handling & Storage: Chunking, VectorDBs, Storage, Embeddings.   
+Workflows  & Observability: Agent Observability, Agent Playground, Agent UI.   
+Agno Projects: Web Search Agents, Financial Agents, RAG Agents.   
+  
+CrewAI  - Multi-Agent Platform:
+Definition and Overview, Key Features and Capabilities.   
+Crew Collaboration Framework, AI-Agent Communication, Workflow Automation in CrewAI.   
+Customization & Advanced Capabilities: Customizing CrewAI, Managing Data Across Agents, Role-playing, Memory, Tools, Focus, Guardrails.   
+Integration & Monitoring: Using LangChain Tools, Monitor your CrewAI applications with Opik.   
+  
+Autogen:
+Overview of Autogen Framework, Installation and Environment Setup.   
+Key Concepts: Autonomy, Adaptability, and Inter-Agent Communication.   
+Agents, Goals, Environments, and Actions.   
+APIs, Libraries, and Tools  Available Within the Autogen Framework.   
+Designing and Developing Agentic Systems, Framework for Agentic Decision-Making.   
+Agent Interaction and Learning: Interaction and Communication Between Agents, Implementing Feedback Loops, Handling Uncertainty and Constraints, Agent Learning and Adaptation.   
+Multi-Agent Collaboration, Deployment, Monitoring Agent Performance.   
+  
+Low-Code and Automation Tools for AI:
+
+LangFlow  - Low Code Tool:
+What is LangFlow?  Overview and Use Cases, Key Features for LLM Applications.   
+Setting Up Your LangFlow Environment, Understanding LangFlow UI and Workflows.   
+Key Terminologies in LangFlow (Nodes, Chains, Prompts ).   
+Quick Start: Creating Your First LangFlow Application.   
+Building Blocks of LangFlow: Nodes and Chains (Core Concepts), Understanding LLMs and Their Integration with LangFlow.   
+Workflows & Customization: Pre-built vs. Custom Workflows, Exploring Commonly Used LangFlow Nodes.   
+Prompt Engineering Basics in LangFlow, LangChain Integration: Using LangFlow with LangChain.   
+Integrating LangFlow with Third-Party Tools: Connecting with Data Sources (SQL, CSV, NoSQL ), API Integration for External Services (REST APIs).   
+Model & Vector Database Integration: Using with Vector Databases for Embeddings, LangFlow with OpenAI  and Hugging Face Models.   
+Workflow Automation: Automating Workflows Using LangFlow.   
+Building Chatbot Applications with LangFlow.   
+  
+n8n  - Workflow Automation Platform:
+Fundamentals & Core Concepts: Introduction and Workflows, Interface, Nodes, Core Workflow Concepts, Data in n8n.   
+API, Webhooks & Error Handling: APIs and Webhooks, Useful Nodes, Error Handling, Debugging.   
+AI & Automation in n8n: Build AI Agent Chatbot, Automations with LLMs, Tools Integrations (WhatsApp, Telegram, Calendar ).   
+n8n Projects: Building Automated RAG Chatbots, Automate Blog Generation with WordPress, Automated Transcribe and Summarize with Notion.   
+  
+Model Context Protocol (MCP):
+Understanding MCP Fundamentals: What is MCP?, Core architecture of MCP, Different Types of MCP Servers.   
+Working with MCP in Practice: Working with Python SDK, MCP with Anthropic, Building MCP with LLMs.   
+MCP Components and Integration: Resources, Tools, Prompts.   
+  
+Phase 4: Cloud Platforms for AI Deployment
+
+AWS Cloud Services for Generative AI:
+
+Introduction to AWS Cloud services: Detail introduction, How to create an AWS account, How to create an IAM, Understanding Regions and Zones.   
+AWS Compute and Container Services: AWS Elastic Container Registry (ECR), AWS Elastic Cloud Compute (EC2), AWS App Runner.   
+AWS S3  (Cloud Infrastructure).   
+AWS Bedrock: Introduction, Console Walkthrough, Architecture, Foundation Models, Embeddings, Chat Playgrounds, Inference Parameters, Pricing. Cloud Infrastructure.   
+AWS SageMaker: Overview, Walk-through, Studio Overview, Studio Walk-through.   
+Model Deployment with SageMaker: Choose a Pre-trained Model, SageMaker Endpoint Creation, SageMaker Console Access, Create SageMaker Domain, Open SageMaker Studio, SageMaker Models Deployment.   
+AWS Lambda: Overview, Console Walkthrough, Permissions Model.   
+AWS API Gateway: Overview, RESTful APIs, WebSocket APIs, Efficient API Development.   
+Integration of AWS Lambda with Bedrock and API Gateway. Creation of AWS Lambda function  and Boto3 upgrade, Writing the AWS Lambda function to connect to Bedrock Service, Create REST API using AWS API Gateway and Lambda Integration.   
+Text Summarization with AWS Services (Lambda, Bedrock, API Gateway).   
+Fine-Tuning Foundation Models on Custom Data  (Overview, Architecture, Hands On AWS SageMaker ).   
+Retrieval-Augmented Generation (RAG) in AWS: Overview, Setup, Data Transformation and Processing, LLM and Retrieval QA, Frontend and Backend Development.   
+Google Cloud Platform (GCP) Services for AI:
+
+Introduction to Google Cloud and Vertex AI: What is Vertex AI?, Google AI Studio Introduction, Google Cloud Regions & Zones, Foundation Google Models.   
+Vertex AI Setup and Installation.   
+Vertex AI Overview, Vertex AI Model Garden.   
+Gemini Models with Vertex AI and Google AI Studio: Introduction to Google Gemini (What is Google Gemini?, Playing with Gemini, Gemini 1.5 Pro (Preview only), Gemini 1.0 Pro ).   
+Gemini Embeddings and Retrieval: Gemini Embeddings, Advanced Information Retrieval with Gemini.   
+Working with Prompts (with Gemini): Working with Freeform & Structured prompts, Working with Text Chat prompt.   
+Multimodal and Text-Based Use Cases (with Gemini): Generate Code, Unit test with Code Chat Bison model, Translate text with Translation LLM, Summarization, Classification, Multimodal Applications (Vision Model, Speech to Text & Text to Speech, Multimodal Prompts ).   
+Retrieval-Augmented Generation (RAG) in GCP: Overview, Setup, Data Transformation and LLM Context, Frontend and Final Demo.   
+Phase 5: Deployment, MLOps, and Monitoring
+
+Deployment Strategies and Tools:
+
+LLM-Based App on Local Infrastructure  (Ollama, Llama CPP, LM Studio, Hugging Face Model Downloader ).   
+Open Source LLM Deployment.   
+Cloud Platforms for LLM Deployment  (Comparison).   
+Model Serving & Deployment (BentoML).   
+Deploying LangServe Runnables and Chains as APIs.   
+LangGraph Deployments  (Concepts, Creating, Connecting ).   
+Deploying AI Agents Stack & End-to-End Agentic AI Projects.   
+CI/CD for AI Agents  (GitHub Actions, Docker ).   
+Cloud Infrastructure  (AWS S3, AWS ECR, AWS EC2, AWS Bedrock ).   
+Deploy AI Agents at Scale  (GitHub Actions, Docker, AWS, BentoML ).   
+Monitoring and Optimization:
+
+LLMOps: Optimizing LLM-Powered Applications.   
+Monitoring & Optimize AI Agents  (LangSmith, Opik, ClearML ).   
+Langfuse  for LLM Observability: Overview, Applications, Importance, Features, Integration Ecosystem. Integration and Monitoring: Step-by-Step Integration with Popular Frameworks (LangChain, OpenAI, etc.), Setting Up API Calls, Tracking Key Metrics (Response Times, Costs, Errors ), Monitoring Prompt Effectiveness  and Token Usage.   
+LangWatch: Metrics and Monitoring. Overview, Use Cases, Features, Connecting with LLMs. API Integration and Setup: API Integration (Sending Logs and Data), Setting Up Observability in AI Workflows. Using with Frameworks.   
+Langsmith: Overview, Key Features, AI Development Workflow, Setup, Configuration, UI, Core Functionalities, Workflow Pipelines, Data Integration, Preprocessing, Cleaning Data, Managing Data Streams and Sources.   
+Monitoring Agent Performance (Autogen).   
+Monitor your CrewAI applications with Opik.   
+Phase 6: End-to-End Projects
+
+Project-Based Learning:
+Agentic AI Projects (Multiple Projects).   
+Building Real-World AI Applications  (Create chatbots, financial agents, content automation, and multi-agent systems ).   
+Developing a Trading Bot Using a MultiAI-Agent System: Define roles, Gather market data, Analyze trends, Generate insights, Monitor risks, Protect investments, Test strategies, Refine performance, Deploy it over the AWS.   
+Develop a Customer Support Chatbot for any Domain: Design Conversational Flow with RAG, Build and Train the Bot, User Interface Design, Testing and Iteration, Deployment with CI-CD, Monitor and Optimize.   
+Project: AWS  (Building Chatbot with Llama3, Langchain  & Streamlit  in AWS, Retrieval-Augmented Generation (RAG) in AWS ).   
+Project: GCP  (Building Chatbot with Gemini Pro, Langchain  & Streamlit  in GCP, Retrieval-Augmented Generation (RAG) in GCP ).   
+Agno Projects  (Web Search Agents, Financial Agents, RAG Agents ).   
+n8n Projects  (Building Automated RAG Chatbots, Automate Blog Generation with WordPress, Automated Transcribe and Summarize with Notion ).   
+Hands-on practice within modules (e.g., Digit Recognition with Vanilla Neural Network, Implementing Unet from Scratch, Using YOLO and ByteSort to Track Objects, Creating Our Own Object Detection Algorithm ).   
