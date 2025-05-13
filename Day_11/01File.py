@@ -1,41 +1,33 @@
 import os
 from dotenv import load_dotenv
-# import openai
-
-
-load_dotenv("../.env")
-
-Groq_api_key = os.getenv('GROQ_API_KEY')
-# print(Groq_api_key)
 from langchain_groq import ChatGroq
-# # from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage, SystemMessage
 
-# # model=ChatGroq(model="Gemma2-9b-It",groq_api_key=Groq_api_key)
+# Load environment variables
+load_dotenv("../.env")
+groq_api_key = os.getenv("GROQ_API_KEY")
+groq_base_url = os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1 ")
+
+# Initialize model
 llm = ChatGroq(
-    model="llama-3.1-8b-instant",
+    model="gemma2-9b-it",
     temperature=0,
     max_tokens=None,
     timeout=None,
     max_retries=2,
-    groq_api_key=Groq_api_key,
-    # other params...
+    api_key=groq_api_key,  # Directly pass API key
+    base_url=groq_base_url,  # Directly pass base URL
 )
 
-
-# # print(model)
-# from langchain_core.messages import HumanMessage, SystemMessage
-# # messages = [
-# #     SystemMessage(content="You are a helpful assistant that helps by answering the question ."),
-# #     HumanMessage(content="Question: How do I create a function in Python?")
-# # ]
-
+# Messages
 messages = [
-    (
-        "system",
-        "You are a helpful assistant that translates English to French. Translate the user sentence.",
-    ),
-    ("human", "I love programming."),
+    SystemMessage(content="You are a helpful assistant that explains programming concepts."),
+    HumanMessage(content="Question: How do I create a function in Python?")
 ]
 
-response = llm.invoke(messages)
-print(response)
+# Invoke model
+try:
+    response = llm.invoke(messages)
+    print(response.content)
+except Exception as e:
+    print("Error:", str(e))
