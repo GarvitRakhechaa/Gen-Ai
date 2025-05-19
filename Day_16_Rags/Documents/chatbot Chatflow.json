@@ -1,0 +1,912 @@
+{
+  "nodes": [
+    {
+      "id": "autoGPT_0",
+      "position": {
+        "x": 511.0895990336187,
+        "y": 68.41877224249532
+      },
+      "type": "customNode",
+      "data": {
+        "id": "autoGPT_0",
+        "label": "AutoGPT",
+        "version": 2,
+        "name": "autoGPT",
+        "type": "AutoGPT",
+        "baseClasses": [
+          "AutoGPT"
+        ],
+        "category": "Agents",
+        "description": "Autonomous agent with chain of thoughts for self-guided task completion",
+        "inputParams": [
+          {
+            "label": "AutoGPT Name",
+            "name": "aiName",
+            "type": "string",
+            "placeholder": "Tom",
+            "optional": true,
+            "id": "autoGPT_0-input-aiName-string",
+            "display": true
+          },
+          {
+            "label": "AutoGPT Role",
+            "name": "aiRole",
+            "type": "string",
+            "placeholder": "Assistant",
+            "optional": true,
+            "id": "autoGPT_0-input-aiRole-string",
+            "display": true
+          },
+          {
+            "label": "Maximum Loop",
+            "name": "maxLoop",
+            "type": "number",
+            "default": 5,
+            "optional": true,
+            "id": "autoGPT_0-input-maxLoop-number",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Allowed Tools",
+            "name": "tools",
+            "type": "Tool",
+            "list": true,
+            "id": "autoGPT_0-input-tools-Tool",
+            "display": true
+          },
+          {
+            "label": "Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "id": "autoGPT_0-input-model-BaseChatModel",
+            "display": true
+          },
+          {
+            "label": "Vector Store Retriever",
+            "name": "vectorStoreRetriever",
+            "type": "BaseRetriever",
+            "id": "autoGPT_0-input-vectorStoreRetriever-BaseRetriever",
+            "display": true
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "autoGPT_0-input-inputModeration-Moderation",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "tools": [
+            "{{tavilyAPI_0.data.instance}}"
+          ],
+          "model": "{{chatOllama_0.data.instance}}",
+          "vectorStoreRetriever": "{{chroma_0.data.instance}}",
+          "aiName": "Garvit Rakhecha",
+          "aiRole": "Teacher",
+          "maxLoop": 5,
+          "inputModeration": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "autoGPT_0-output-autoGPT-AutoGPT",
+            "name": "autoGPT",
+            "label": "AutoGPT",
+            "description": "Autonomous agent with chain of thoughts for self-guided task completion",
+            "type": "AutoGPT"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 684,
+      "positionAbsolute": {
+        "x": 511.0895990336187,
+        "y": 68.41877224249532
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "chatOllama_0",
+      "position": {
+        "x": -15.6010013825843,
+        "y": 1.2700529647426322
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatOllama_0",
+        "label": "ChatOllama",
+        "version": 5,
+        "name": "chatOllama",
+        "type": "ChatOllama",
+        "baseClasses": [
+          "ChatOllama",
+          "ChatOllama",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Chat completion using open-source LLM on Ollama",
+        "inputParams": [
+          {
+            "label": "Base URL",
+            "name": "baseUrl",
+            "type": "string",
+            "default": "http://localhost:11434",
+            "id": "chatOllama_0-input-baseUrl-string",
+            "display": true
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "string",
+            "placeholder": "llama2",
+            "id": "chatOllama_0-input-modelName-string",
+            "display": true
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "description": "The temperature of the model. Increasing the temperature will make the model answer more creatively. (Default: 0.8). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatOllama_0-input-temperature-number",
+            "display": true
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Allow image input. Refer to the <a href=\"https://docs.flowiseai.com/using-flowise/uploads#image\" target=\"_blank\">docs</a> for more details.",
+            "default": false,
+            "optional": true,
+            "id": "chatOllama_0-input-allowImageUploads-boolean",
+            "display": true
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-streaming-boolean",
+            "display": true
+          },
+          {
+            "label": "JSON Mode",
+            "name": "jsonMode",
+            "type": "boolean",
+            "description": "Coerces model outputs to only return JSON. Specify in the system prompt to return JSON. Ex: Format all responses as JSON object",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-jsonMode-boolean",
+            "display": true
+          },
+          {
+            "label": "Keep Alive",
+            "name": "keepAlive",
+            "type": "string",
+            "description": "How long to keep connection alive. A duration string (such as \"10m\" or \"24h\")",
+            "default": "5m",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-keepAlive-string",
+            "display": true
+          },
+          {
+            "label": "Top P",
+            "name": "topP",
+            "type": "number",
+            "description": "Works together with top-k. A higher value (e.g., 0.95) will lead to more diverse text, while a lower value (e.g., 0.5) will generate more focused and conservative text. (Default: 0.9). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-topP-number",
+            "display": true
+          },
+          {
+            "label": "Top K",
+            "name": "topK",
+            "type": "number",
+            "description": "Reduces the probability of generating nonsense. A higher value (e.g. 100) will give more diverse answers, while a lower value (e.g. 10) will be more conservative. (Default: 40). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-topK-number",
+            "display": true
+          },
+          {
+            "label": "Mirostat",
+            "name": "mirostat",
+            "type": "number",
+            "description": "Enable Mirostat sampling for controlling perplexity. (default: 0, 0 = disabled, 1 = Mirostat, 2 = Mirostat 2.0). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-mirostat-number",
+            "display": true
+          },
+          {
+            "label": "Mirostat ETA",
+            "name": "mirostatEta",
+            "type": "number",
+            "description": "Influences how quickly the algorithm responds to feedback from the generated text. A lower learning rate will result in slower adjustments, while a higher learning rate will make the algorithm more responsive. (Default: 0.1) Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-mirostatEta-number",
+            "display": true
+          },
+          {
+            "label": "Mirostat TAU",
+            "name": "mirostatTau",
+            "type": "number",
+            "description": "Controls the balance between coherence and diversity of the output. A lower value will result in more focused and coherent text. (Default: 5.0) Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-mirostatTau-number",
+            "display": true
+          },
+          {
+            "label": "Context Window Size",
+            "name": "numCtx",
+            "type": "number",
+            "description": "Sets the size of the context window used to generate the next token. (Default: 2048) Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-numCtx-number",
+            "display": true
+          },
+          {
+            "label": "Number of GPU",
+            "name": "numGpu",
+            "type": "number",
+            "description": "The number of layers to send to the GPU(s). On macOS it defaults to 1 to enable metal support, 0 to disable. Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-numGpu-number",
+            "display": true
+          },
+          {
+            "label": "Number of Thread",
+            "name": "numThread",
+            "type": "number",
+            "description": "Sets the number of threads to use during computation. By default, Ollama will detect this for optimal performance. It is recommended to set this value to the number of physical CPU cores your system has (as opposed to the logical number of cores). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-numThread-number",
+            "display": true
+          },
+          {
+            "label": "Repeat Last N",
+            "name": "repeatLastN",
+            "type": "number",
+            "description": "Sets how far back for the model to look back to prevent repetition. (Default: 64, 0 = disabled, -1 = num_ctx). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-repeatLastN-number",
+            "display": true
+          },
+          {
+            "label": "Repeat Penalty",
+            "name": "repeatPenalty",
+            "type": "number",
+            "description": "Sets how strongly to penalize repetitions. A higher value (e.g., 1.5) will penalize repetitions more strongly, while a lower value (e.g., 0.9) will be more lenient. (Default: 1.1). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-repeatPenalty-number",
+            "display": true
+          },
+          {
+            "label": "Stop Sequence",
+            "name": "stop",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "AI assistant:",
+            "description": "Sets the stop sequences to use. Use comma to seperate different sequences. Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-stop-string",
+            "display": true
+          },
+          {
+            "label": "Tail Free Sampling",
+            "name": "tfsZ",
+            "type": "number",
+            "description": "Tail free sampling is used to reduce the impact of less probable tokens from the output. A higher value (e.g., 2.0) will reduce the impact more, while a value of 1.0 disables this setting. (Default: 1). Refer to <a target=\"_blank\" href=\"https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values\">docs</a> for more details",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatOllama_0-input-tfsZ-number",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatOllama_0-input-cache-BaseCache",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "baseUrl": "http://localhost:11434",
+          "modelName": "llama2",
+          "temperature": 0.9,
+          "allowImageUploads": "",
+          "streaming": true,
+          "jsonMode": "",
+          "keepAlive": "5m",
+          "topP": "",
+          "topK": "",
+          "mirostat": "",
+          "mirostatEta": "",
+          "mirostatTau": "",
+          "numCtx": "",
+          "numGpu": "",
+          "numThread": "",
+          "repeatLastN": "",
+          "repeatPenalty": "",
+          "stop": "",
+          "tfsZ": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatOllama_0-output-chatOllama-ChatOllama|ChatOllama|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatOllama",
+            "label": "ChatOllama",
+            "description": "Chat completion using open-source LLM on Ollama",
+            "type": "ChatOllama | ChatOllama | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 681,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -15.6010013825843,
+        "y": 1.2700529647426322
+      },
+      "dragging": false
+    },
+    {
+      "id": "tavilyAPI_0",
+      "position": {
+        "x": 899.836842248561,
+        "y": -235.9121458312273
+      },
+      "type": "customNode",
+      "data": {
+        "id": "tavilyAPI_0",
+        "label": "Tavily API",
+        "version": 1.2,
+        "name": "tavilyAPI",
+        "type": "TavilyAPI",
+        "baseClasses": [
+          "TavilyAPI",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Wrapper around TavilyAPI - A specialized search engine designed for LLMs and AI agents",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "tavilyApi"
+            ],
+            "id": "tavilyAPI_0-input-credential-credential",
+            "display": true
+          },
+          {
+            "label": "Topic",
+            "name": "topic",
+            "type": "options",
+            "options": [
+              {
+                "label": "General",
+                "name": "general"
+              },
+              {
+                "label": "News",
+                "name": "news"
+              }
+            ],
+            "default": "general",
+            "description": "The category of the search. News for real-time updates, general for broader searches",
+            "additionalParams": true,
+            "optional": true,
+            "id": "tavilyAPI_0-input-topic-options",
+            "display": true
+          },
+          {
+            "label": "Search Depth",
+            "name": "searchDepth",
+            "type": "options",
+            "options": [
+              {
+                "label": "Basic",
+                "name": "basic"
+              },
+              {
+                "label": "Advanced",
+                "name": "advanced"
+              }
+            ],
+            "default": "basic",
+            "description": "The depth of the search. Advanced costs 2 API Credits, basic costs 1",
+            "additionalParams": true,
+            "optional": true,
+            "id": "tavilyAPI_0-input-searchDepth-options",
+            "display": true
+          },
+          {
+            "label": "Chunks Per Source",
+            "name": "chunksPerSource",
+            "type": "number",
+            "default": 3,
+            "description": "Number of content chunks per source (1-3). Only for advanced search",
+            "additionalParams": true,
+            "optional": true,
+            "id": "tavilyAPI_0-input-chunksPerSource-number",
+            "display": true
+          },
+          {
+            "label": "Max Results",
+            "name": "maxResults",
+            "type": "number",
+            "default": 5,
+            "additionalParams": true,
+            "description": "Maximum number of search results (0-20)",
+            "optional": true,
+            "id": "tavilyAPI_0-input-maxResults-number",
+            "display": true
+          },
+          {
+            "label": "Time Range",
+            "name": "timeRange",
+            "type": "options",
+            "options": [
+              {
+                "label": "Day",
+                "name": "day"
+              },
+              {
+                "label": "Week",
+                "name": "week"
+              },
+              {
+                "label": "Month",
+                "name": "month"
+              },
+              {
+                "label": "Year",
+                "name": "year"
+              }
+            ],
+            "optional": true,
+            "additionalParams": true,
+            "description": "Time range to filter results",
+            "id": "tavilyAPI_0-input-timeRange-options",
+            "display": true
+          },
+          {
+            "label": "Days",
+            "name": "days",
+            "type": "number",
+            "default": 7,
+            "additionalParams": true,
+            "description": "Number of days back from current date (only for news topic)",
+            "optional": true,
+            "id": "tavilyAPI_0-input-days-number",
+            "display": true
+          },
+          {
+            "label": "Include Answer",
+            "name": "includeAnswer",
+            "type": "boolean",
+            "default": false,
+            "description": "Include an LLM-generated answer to the query",
+            "additionalParams": true,
+            "optional": true,
+            "id": "tavilyAPI_0-input-includeAnswer-boolean",
+            "display": true
+          },
+          {
+            "label": "Include Raw Content",
+            "name": "includeRawContent",
+            "type": "boolean",
+            "default": false,
+            "description": "Include cleaned and parsed HTML content of each result",
+            "additionalParams": true,
+            "optional": true,
+            "id": "tavilyAPI_0-input-includeRawContent-boolean",
+            "display": true
+          },
+          {
+            "label": "Include Images",
+            "name": "includeImages",
+            "type": "boolean",
+            "default": false,
+            "description": "Include image search results",
+            "additionalParams": true,
+            "optional": true,
+            "id": "tavilyAPI_0-input-includeImages-boolean",
+            "display": true
+          },
+          {
+            "label": "Include Image Descriptions",
+            "name": "includeImageDescriptions",
+            "type": "boolean",
+            "default": false,
+            "description": "Include descriptive text for each image",
+            "additionalParams": true,
+            "optional": true,
+            "id": "tavilyAPI_0-input-includeImageDescriptions-boolean",
+            "display": true
+          },
+          {
+            "label": "Include Domains",
+            "name": "includeDomains",
+            "type": "string",
+            "optional": true,
+            "description": "Comma-separated list of domains to include in results",
+            "additionalParams": true,
+            "id": "tavilyAPI_0-input-includeDomains-string",
+            "display": true
+          },
+          {
+            "label": "Exclude Domains",
+            "name": "excludeDomains",
+            "type": "string",
+            "optional": true,
+            "description": "Comma-separated list of domains to exclude from results",
+            "additionalParams": true,
+            "id": "tavilyAPI_0-input-excludeDomains-string",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "topic": "general",
+          "searchDepth": "basic",
+          "chunksPerSource": 3,
+          "maxResults": 5,
+          "timeRange": "",
+          "days": 7,
+          "includeAnswer": "",
+          "includeRawContent": "",
+          "includeImages": "",
+          "includeImageDescriptions": "",
+          "includeDomains": "",
+          "excludeDomains": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "tavilyAPI_0-output-tavilyAPI-TavilyAPI|Tool|StructuredTool|Runnable",
+            "name": "tavilyAPI",
+            "label": "TavilyAPI",
+            "description": "Wrapper around TavilyAPI - A specialized search engine designed for LLMs and AI agents",
+            "type": "TavilyAPI | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 333,
+      "positionAbsolute": {
+        "x": 899.836842248561,
+        "y": -235.9121458312273
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "chroma_0",
+      "position": {
+        "x": 1425.308926893438,
+        "y": 220.15888525999117
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chroma_0",
+        "label": "Chroma",
+        "version": 2,
+        "name": "chroma",
+        "type": "Chroma",
+        "baseClasses": [
+          "Chroma",
+          "VectorStoreRetriever",
+          "BaseRetriever"
+        ],
+        "category": "Vector Stores",
+        "description": "Upsert embedded data and perform similarity search upon query using Chroma, an open-source embedding database",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "description": "Only needed if you have chroma on cloud services with X-Api-key",
+            "optional": true,
+            "credentialNames": [
+              "chromaApi"
+            ],
+            "id": "chroma_0-input-credential-credential",
+            "display": true
+          },
+          {
+            "label": "Collection Name",
+            "name": "collectionName",
+            "type": "string",
+            "id": "chroma_0-input-collectionName-string",
+            "display": true
+          },
+          {
+            "label": "Chroma URL",
+            "name": "chromaURL",
+            "type": "string",
+            "optional": true,
+            "id": "chroma_0-input-chromaURL-string",
+            "display": true
+          },
+          {
+            "label": "Chroma Metadata Filter",
+            "name": "chromaMetadataFilter",
+            "type": "json",
+            "optional": true,
+            "additionalParams": true,
+            "id": "chroma_0-input-chromaMetadataFilter-json",
+            "display": true
+          },
+          {
+            "label": "Top K",
+            "name": "topK",
+            "description": "Number of top results to fetch. Default to 4",
+            "placeholder": "4",
+            "type": "number",
+            "additionalParams": true,
+            "optional": true,
+            "id": "chroma_0-input-topK-number",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Document",
+            "name": "document",
+            "type": "Document",
+            "list": true,
+            "optional": true,
+            "id": "chroma_0-input-document-Document",
+            "display": true
+          },
+          {
+            "label": "Embeddings",
+            "name": "embeddings",
+            "type": "Embeddings",
+            "id": "chroma_0-input-embeddings-Embeddings",
+            "display": true
+          },
+          {
+            "label": "Record Manager",
+            "name": "recordManager",
+            "type": "RecordManager",
+            "description": "Keep track of the record to prevent duplication",
+            "optional": true,
+            "id": "chroma_0-input-recordManager-RecordManager",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "document": "",
+          "embeddings": "{{googleGenerativeAiEmbeddings_0.data.instance}}",
+          "recordManager": "",
+          "collectionName": "collection name",
+          "chromaURL": "",
+          "chromaMetadataFilter": "",
+          "topK": ""
+        },
+        "outputAnchors": [
+          {
+            "name": "output",
+            "label": "Output",
+            "type": "options",
+            "description": "",
+            "options": [
+              {
+                "id": "chroma_0-output-retriever-Chroma|VectorStoreRetriever|BaseRetriever",
+                "name": "retriever",
+                "label": "Chroma Retriever",
+                "description": "",
+                "type": "Chroma | VectorStoreRetriever | BaseRetriever"
+              },
+              {
+                "id": "chroma_0-output-vectorStore-Chroma|VectorStore",
+                "name": "vectorStore",
+                "label": "Chroma Vector Store",
+                "description": "",
+                "type": "Chroma | VectorStore"
+              }
+            ],
+            "default": "retriever"
+          }
+        ],
+        "outputs": {
+          "output": "retriever"
+        },
+        "selected": false
+      },
+      "width": 300,
+      "height": 709,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1425.308926893438,
+        "y": 220.15888525999117
+      },
+      "dragging": false
+    },
+    {
+      "id": "googleGenerativeAiEmbeddings_0",
+      "position": {
+        "x": 970.6308830830841,
+        "y": 381.6552032960408
+      },
+      "type": "customNode",
+      "data": {
+        "id": "googleGenerativeAiEmbeddings_0",
+        "label": "GoogleGenerativeAI Embeddings",
+        "version": 2,
+        "name": "googleGenerativeAiEmbeddings",
+        "type": "GoogleGenerativeAiEmbeddings",
+        "baseClasses": [
+          "GoogleGenerativeAiEmbeddings",
+          "Embeddings"
+        ],
+        "category": "Embeddings",
+        "description": "Google Generative API to generate embeddings for a given text",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleGenerativeAI"
+            ],
+            "optional": false,
+            "description": "Google Generative AI credential.",
+            "id": "googleGenerativeAiEmbeddings_0-input-credential-credential",
+            "display": true
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "embedding-001",
+            "id": "googleGenerativeAiEmbeddings_0-input-modelName-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Task Type",
+            "name": "tasktype",
+            "type": "options",
+            "description": "Type of task for which the embedding will be used",
+            "options": [
+              {
+                "label": "TASK_TYPE_UNSPECIFIED",
+                "name": "TASK_TYPE_UNSPECIFIED"
+              },
+              {
+                "label": "RETRIEVAL_QUERY",
+                "name": "RETRIEVAL_QUERY"
+              },
+              {
+                "label": "RETRIEVAL_DOCUMENT",
+                "name": "RETRIEVAL_DOCUMENT"
+              },
+              {
+                "label": "SEMANTIC_SIMILARITY",
+                "name": "SEMANTIC_SIMILARITY"
+              },
+              {
+                "label": "CLASSIFICATION",
+                "name": "CLASSIFICATION"
+              },
+              {
+                "label": "CLUSTERING",
+                "name": "CLUSTERING"
+              }
+            ],
+            "default": "TASK_TYPE_UNSPECIFIED",
+            "id": "googleGenerativeAiEmbeddings_0-input-tasktype-options",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "modelName": "embedding-001",
+          "tasktype": "TASK_TYPE_UNSPECIFIED"
+        },
+        "outputAnchors": [
+          {
+            "id": "googleGenerativeAiEmbeddings_0-output-googleGenerativeAiEmbeddings-GoogleGenerativeAiEmbeddings|Embeddings",
+            "name": "googleGenerativeAiEmbeddings",
+            "label": "GoogleGenerativeAiEmbeddings",
+            "description": "Google Generative API to generate embeddings for a given text",
+            "type": "GoogleGenerativeAiEmbeddings | Embeddings"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 472,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 970.6308830830841,
+        "y": 381.6552032960408
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "chatOllama_0",
+      "sourceHandle": "chatOllama_0-output-chatOllama-ChatOllama|ChatOllama|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "autoGPT_0",
+      "targetHandle": "autoGPT_0-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "chatOllama_0-chatOllama_0-output-chatOllama-ChatOllama|ChatOllama|BaseChatModel|BaseLanguageModel|Runnable-autoGPT_0-autoGPT_0-input-model-BaseChatModel"
+    },
+    {
+      "source": "tavilyAPI_0",
+      "sourceHandle": "tavilyAPI_0-output-tavilyAPI-TavilyAPI|Tool|StructuredTool|Runnable",
+      "target": "autoGPT_0",
+      "targetHandle": "autoGPT_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "tavilyAPI_0-tavilyAPI_0-output-tavilyAPI-TavilyAPI|Tool|StructuredTool|Runnable-autoGPT_0-autoGPT_0-input-tools-Tool"
+    },
+    {
+      "source": "googleGenerativeAiEmbeddings_0",
+      "sourceHandle": "googleGenerativeAiEmbeddings_0-output-googleGenerativeAiEmbeddings-GoogleGenerativeAiEmbeddings|Embeddings",
+      "target": "chroma_0",
+      "targetHandle": "chroma_0-input-embeddings-Embeddings",
+      "type": "buttonedge",
+      "id": "googleGenerativeAiEmbeddings_0-googleGenerativeAiEmbeddings_0-output-googleGenerativeAiEmbeddings-GoogleGenerativeAiEmbeddings|Embeddings-chroma_0-chroma_0-input-embeddings-Embeddings"
+    },
+    {
+      "source": "chroma_0",
+      "sourceHandle": "chroma_0-output-retriever-Chroma|VectorStoreRetriever|BaseRetriever",
+      "target": "autoGPT_0",
+      "targetHandle": "autoGPT_0-input-vectorStoreRetriever-BaseRetriever",
+      "type": "buttonedge",
+      "id": "chroma_0-chroma_0-output-retriever-Chroma|VectorStoreRetriever|BaseRetriever-autoGPT_0-autoGPT_0-input-vectorStoreRetriever-BaseRetriever"
+    }
+  ]
+}

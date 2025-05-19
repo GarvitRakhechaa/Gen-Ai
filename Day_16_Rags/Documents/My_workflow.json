@@ -1,0 +1,262 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appwDcyEsRQBYj0yW",
+          "mode": "list",
+          "cachedResultName": "n8n base",
+          "cachedResultUrl": "https://airtable.com/appwDcyEsRQBYj0yW"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblyO7dz5NqJVdPzs",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appwDcyEsRQBYj0yW/tblyO7dz5NqJVdPzs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Looks": "={{ $json.Looks }}",
+            "Profession": "={{ $json.Profession }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Looks",
+              "displayName": "Looks",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Profession",
+              "displayName": "Profession",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Video Editor",
+                  "value": "Video Editor"
+                },
+                {
+                  "name": "Graphic Designer",
+                  "value": "Graphic Designer"
+                },
+                {
+                  "name": "Ai manager",
+                  "value": "Ai manager"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "cf026e2c-8b17-44a0-859c-85f96f70e0a9",
+      "name": "Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "HjvXKaT8tjlnBIik",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "My Team",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            },
+            {
+              "fieldLabel": "Looks"
+            },
+            {
+              "fieldLabel": "Profession",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Video Editor"
+                  },
+                  {
+                    "option": "Graphic Designer"
+                  },
+                  {
+                    "option": "Ai manager"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1dff2635-e24a-49d5-8c69-47ebf54d106c",
+      "name": "On form submission",
+      "webhookId": "2a84f794-9327-419b-b5d1-b7e15eee7f4d"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.fields.Profession }}",
+                    "rightValue": "Ai manager",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "58575d92-2ba4-4549-9440-f3723ec8c550"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5989a364-7ffb-49f4-9149-e2a6a40df3f2",
+                    "leftValue": "={{ $json.fields.Profession }}",
+                    "rightValue": "Graphic Designer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2b9d8a9a-e0d4-4c86-b1a8-ab435f6835c2",
+                    "leftValue": "={{ $json.fields.Profession }}",
+                    "rightValue": "Video Editor",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        480,
+        0
+      ],
+      "id": "963663d3-5bad-45ee-a01e-5f28b5073556",
+      "name": "Switch"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "166ab318-6752-4d9f-9356-440de9c15d97",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b0753c137a7ea57a2768484986d16d572e7a981701d74505fbf3e6c9c71c473a"
+  },
+  "id": "QiV8mD1r6E5L3deV",
+  "tags": []
+}

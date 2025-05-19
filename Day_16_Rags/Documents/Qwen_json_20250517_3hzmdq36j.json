@@ -1,0 +1,39 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "path": "minecraft-command",
+        "method": "POST"
+      },
+      "name": "Webhook",
+      "type": "webhook",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://your.mc.server:8080/api/v1/command",
+        "method": "POST",
+        "bodyContent": "{ \"command\": \"say {{ $json.body.message }}\", \"password\": \"yourpassword\" }",
+        "options": {}
+      },
+      "name": "Send to MC",
+      "type": "httpRequest",
+      "typeVersion": 1,
+      "position": [500, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send to MC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
