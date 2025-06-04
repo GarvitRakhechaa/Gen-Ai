@@ -2,12 +2,48 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import os
 import json
+import pyttsx3
 
 load_dotenv("../.env")
 
 Api_key = os.getenv('GOOGLE_API_KEY')
 Base_Url = os.getenv("GOOGLE_BASE_URL")
 
+import speech_recognition as sr
+
+def continuous_listen():
+    recognizer = sr.Recognizer()
+    mic = sr.Microphone()
+
+    with mic as source:
+        recognizer.adjust_for_ambient_noise(source)
+        print("Listening continuously... Speak whenever you want!")
+
+        while True:
+            try:
+                audio = recognizer.listen(source, timeout=None, phrase_time_limit=None)
+                text = recognizer.recognize_google(audio)
+                if text.strip() != "":
+                    print("You said:", text)
+                    return text
+            except sr.UnknownValueError:
+                # Ignore if speech not recognized, keep listening silently
+                pass
+            except sr.RequestError:
+                # Ignore API errors silently (e.g. no internet)
+                pass
+            except KeyboardInterrupt:
+                print("\nStopped by user")
+                break
+
+def speak_text(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 160)  # Speed (default is around 200)
+    engine.setProperty('volume', 1.0)  # Max volume
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[0].id)  # You can choose male/female voice
+    engine.say(text)
+    engine.runAndWait()
 
 client = OpenAI(
     base_url= Base_Url,
@@ -46,7 +82,7 @@ Messsages = [
     {   "role": "system", "content": system_prompt },    
 ]
 
-query = input("> enter your prompt: ")
+query = continuous_listen()
 Messsages.append({"role": "user", "content": query})
 
 
@@ -65,4 +101,7 @@ while True:
         continue
     
     print(f"🤖: {parsed_response.get("content")}")
+    text = parsed_response.get("content")
+    speak_text(text)
+    
     break

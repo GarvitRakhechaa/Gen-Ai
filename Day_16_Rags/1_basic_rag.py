@@ -47,7 +47,7 @@ if not os.path.exists(persistent_directory):
     )
     
     print("\n--- Finished creating vector store ---")
-
+    
 else:
     print("Vector store already exists. No need to initialize.")
 

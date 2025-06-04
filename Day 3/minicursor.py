@@ -6,8 +6,10 @@ import requests
 import time
 
 load_dotenv("../.env")
-Api_key = os.getenv('GOOGLE_API_KEY')
-Base_Url = os.getenv("GOOGLE_BASE_URL")
+# Api_key = os.getenv('GOOGLE_API_KEY')
+Api_key = os.getenv('A4F_API_KEY')
+# Base_Url = os.getenv("GOOGLE_BASE_URL")
+Base_Url = os.getenv("A4F_BASE_URL")
 
 
 client = OpenAI(
@@ -126,7 +128,8 @@ while True:
 
     while True:
         response = client.chat.completions.create(
-            model="gemini-2.0-flash",
+            # model="gemini-2.0-flash",
+            model="provider-4/gpt-4.1",
             response_format={"type": "json_object"},
             messages = Messages
         )
@@ -135,7 +138,7 @@ while True:
 
         if parsed_response.get("step") == "plan":
             print(f"🧠: {parsed_response.get("content")}")
-            time.sleep(5)
+            time.sleep(10)
             print("sleeped for 7 seconds")
             
             continue
@@ -147,13 +150,13 @@ while True:
             if avaiable_tools.get(tool_name, False) != False:
                 if tool_name == "write_to_file":
                     output = avaiable_tools[tool_name].get("fn")(tool_input.get("file_path"), tool_input.get("content"))
-                    time.sleep(7)
+                    time.sleep(10)
                     Messages.append({"role": "assistant", "content": json.dumps({"step": "observe", "output": output})})
                     print("sleeped for 7 seconds")
                     continue
                 else:
                     output =  avaiable_tools[tool_name].get("fn")(tool_input)  # this is a function call
-                    time.sleep(7)
+                    time.sleep(10)
                     Messages.append({"role": "assistant", "content": json.dumps({"step": "observe", "output": output})})
                     print("sleeped for 7 seconds")
                     continue
